@@ -3,6 +3,8 @@ import toml
 import sys
 import time
 import os
+import pygame
+
 
 try:
     config = toml.load(open('config.toml'))
@@ -38,6 +40,11 @@ else:
 
 # print(f"login successful! token: {token}, privatetoken: {privatetoken}")
 
+pygame.init()
+pygame.mixer.init()
+
+sound = pygame.mixer.Sound('sound.mp3')
+
 last_n = -2
 while True:
     course_data = {
@@ -58,6 +65,7 @@ while True:
     if n > last_n and last_n != -1:
         print("NEW STUFF JUST DROPPED!!")
         os.system("notify-send 'NEW STUFF JUST DROPPED'")
+        sound.play()
         print(open_international_contents[n-1])
 
     last_n = n
